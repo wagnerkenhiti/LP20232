@@ -20,7 +20,7 @@ int main(int argc, char const *argv[])
     char msg[50];
     DATA d1, d2;
 
-    printf("Data 1 \n");
+    printf("Data 1\n");
     printf("\tDia ->");
     scanf(" %d", &d1.dia);
     printf("\tMês ->");
