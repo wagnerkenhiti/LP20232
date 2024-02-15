@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     PRODUTO *lista;
     PRODUTO produto;
     int opcao;
-    char msg[50];
+    //char msg[50];
     DATA d1, d2;
 
     printf("Data 1\n");
