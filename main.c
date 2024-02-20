@@ -62,6 +62,20 @@ int main(int argc, char const *argv[])
         opcao = MenuPrincipal();
         switch (opcao)
         {
+        case 1:
+
+
+        break;
+
+
+        case 2:
+
+
+
+
+        break;
+
+
         case 3:
             lista = (PRODUTO *)malloc(sizeof(PRODUTO) * 10);
             int qtdeProdutos = lerProdutosCSV(lista);
@@ -87,4 +101,7 @@ int main(int argc, char const *argv[])
             break;
         }
     } while (opcao != 9);
+
+        printf("Saindo do programa!");
+        return 0;
 }

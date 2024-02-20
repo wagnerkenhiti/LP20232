@@ -290,3 +290,15 @@ unsigned int obterProximoIdProduto()
     }
     return id;
 }
+
+
+int editaProduto(){
+
+
+
+
+
+
+
+    
+}
