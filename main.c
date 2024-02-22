@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     PRODUTO *lista;
     PRODUTO produto;
     int opcao;
-    //char msg[50];
+    // char msg[50];
     DATA d1, d2;
 
     printf("Data 1\n");
@@ -36,78 +36,104 @@ int main(int argc, char const *argv[])
     printf("\tAno ->");
     scanf(" %d", &d2.ano);
 
-    int resp = DataCmp(d1,d2);
-    switch (resp)    
+    int resp = DataCmp(d1, d2);
+    switch (resp)
     {
-    case 0: printf("Datas iguais\n");            
+    case 0:
+        printf("Datas iguais\n");
         break;
-    
-    case -1: printf("Data 1 menos recente que Data 2\n");            
+
+    case -1:
+        printf("Data 1 menos recente que Data 2\n");
         break;
-    
-    case 1: printf("Data 1 mais recente que Data 2\n");            
+
+    case 1:
+        printf("Data 1 mais recente que Data 2\n");
         break;
     default:
         break;
     }
     getchar();
-        
-    lerProduto(&produto);
-    produto.id = obterProximoIdProduto();
-    exibirProduto(produto);
-    //gravarProdutoCSV(produto);
-    getchar();
+
     do
     {
         opcao = MenuPrincipal();
         switch (opcao)
         {
         case 1:
-            int opcao1=MenuVenda();
-            do{
-                
-                switch (opcao1){
+            int opcao1;
+            do
+            {
+                 opcao1 = MenuVenda();
+                switch (opcao1)
+                {
                 case 1:
-                
-                break;
+
+                    break;
 
                 case 2:
-                break;
-                default: printf("Comando nao reconhecido");
+                    break;
                 }
-            } while(opcao1!=9);
+            } while (opcao1 != 9);
 
-        break;
-
+            break;
 
         case 2:
 
-        int opcao2=MenuClientes();
-            do{
-                switch (opcao2){
+            int opcao2; 
+            do
+            {
+                opcao2 = MenuClientes();
+                switch (opcao2)
+                {
                 case 1:
-                
-                break;
+
+                    break;
 
                 case 2:
-                break;
+                    break;
                 case 3:
-                break;
+                    break;
                 case 4:
-                break;
+                    break;
                 case 5:
-                break;
-                default: printf("Comando nao reconhecido");
+                    break;
                 }
-            } while(opcao1!=9);
+            } while (opcao1 != 9);
 
-
-
-
-        break;
-
+            break;
 
         case 3:
+
+            int opcao3;
+            do
+            {
+                opcao3 = MenuProdutos();
+                switch (opcao3)
+                {
+                case 1:
+
+                    lerProduto(&produto);
+                    produto.id = obterProximoIdProduto();
+                    exibirProduto(produto);
+                    gravarProdutoCSV(produto);
+                    getchar();
+
+                    break;
+
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                }
+            } while (opcao1 != 9);
+
+
+
+
+            /*
             lista = (PRODUTO *)malloc(sizeof(PRODUTO) * 10);
             int qtdeProdutos = lerProdutosCSV(lista);
             printf("Quantidade de registros: %d\n", qtdeProdutos);
@@ -124,15 +150,18 @@ int main(int argc, char const *argv[])
             lista = (PRODUTO *)malloc(sizeof(PRODUTO) * 10);
             int qtdeBin;
             qtdeBin = lerProdutosDAT(lista);
-            printf("Quantidade de registros (binário): %d\n", qtdeBin);     
-            getchar();  
-            getchar();     
+            printf("Quantidade de registros (binário): %d\n", qtdeBin);
+            getchar();
+            getchar();
+
+
+            */
             break;
         default:
             break;
         }
     } while (opcao != 9);
 
-        printf("Saindo do programa!");
-        return 0;
+    printf("Saindo do programa!");
+    return 0;
 }
