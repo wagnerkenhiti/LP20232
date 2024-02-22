@@ -32,7 +32,5 @@ int MenuClientes();
 */
 int MenuProdutos();
 
-int MenuCompras();
-
 //teste
 #endif
