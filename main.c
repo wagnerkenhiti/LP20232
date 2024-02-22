@@ -97,7 +97,7 @@ int main(int argc, char const *argv[])
                 break;
                 case 5:
                 break;
-                default: printf("Comando nao reconhecido");
+                default: printf("Comando");
                 }
             } while(opcao1!=9);
 
