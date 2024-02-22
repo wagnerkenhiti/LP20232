@@ -290,3 +290,19 @@ unsigned int obterProximoIdProduto()
     }
     return id;
 }
+
+/**
+ * @param id Indica qual produto vai ser alterado
+ * @param prod Indica qual novo produto substituira o antigo
+ * @return Retorna 1 para caso a modificacao foi realizada e 0 quando nao. 
+*/
+int editaProduto(unsigned int id, PRODUTO prod){
+
+
+
+
+
+
+
+    return 0;
+}

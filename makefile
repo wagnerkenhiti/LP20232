@@ -1,7 +1,7 @@
 all: mercadinhoTeste
 
 # compilação do executavel
-mercadinhoTeste:  produtos.o apresentacao.o tempo.o cliente.o main.o
+mercadinhoTeste:  produtos.o apresentacao.o tempo.o cliente.o vendas.o main.o
 # Compilador faz a ligação entre os dois arquivos obj 
 # 	e gera o executável
 	gcc -o mercadoPrototipo main.o produtos.o apresentacao.o tempo.o cliente.o -ggdb
@@ -21,12 +21,11 @@ produtos.o : produtos.c
 # compila o arquivo atual
 	gcc -o produtos.o -c produtos.c -Wall -ggdb
 
-
+vendas.o : vendas.c
+	gcc -o vendas.o -c vendas.c -Wall -ggdb
 
 main.o : main.c produtos.h
 	gcc -o main.o -c main.c -Wall -ggdb
-
-
 
 clean:
 	rm -rf *.o
