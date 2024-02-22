@@ -63,12 +63,43 @@ int main(int argc, char const *argv[])
         switch (opcao)
         {
         case 1:
+            int opcao1=MenuVenda();
+            do{
+                
+                switch (opcao1){
+                case 1:
+                
+                break;
 
+                case 2:
+                break;
+                default: printf("Comando nao reconhecido");
+                }
+            } while(opcao1!=9);
 
         break;
 
 
         case 2:
+
+        int opcao2=MenuClientes();
+            do{
+                switch (opcao2){
+                case 1:
+                
+                break;
+
+                case 2:
+                break;
+                case 3:
+                break;
+                case 4:
+                break;
+                case 5:
+                break;
+                default: printf("Comando nao reconhecido");
+                }
+            } while(opcao1!=9);
 
 
 
