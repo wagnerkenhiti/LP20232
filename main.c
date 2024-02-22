@@ -64,7 +64,7 @@ int main(int argc, char const *argv[])
             int opcao1;
             do
             {
-                 opcao1 = MenuVenda();
+                opcao1 = MenuVenda();
                 switch (opcao1)
                 {
                 case 1:
@@ -73,6 +73,8 @@ int main(int argc, char const *argv[])
 
                 case 2:
                     break;
+                default:
+                    break;
                 }
             } while (opcao1 != 9);
 
@@ -80,7 +82,7 @@ int main(int argc, char const *argv[])
 
         case 2:
 
-            int opcao2; 
+            int opcao2;
             do
             {
                 opcao2 = MenuClientes();
@@ -98,8 +100,10 @@ int main(int argc, char const *argv[])
                     break;
                 case 5:
                     break;
+                default:
+                    break;
                 }
-            } while (opcao1 != 9);
+            } while (opcao2 != 9);
 
             break;
 
@@ -127,11 +131,10 @@ int main(int argc, char const *argv[])
                     break;
                 case 4:
                     break;
+                default:
+                    break;
                 }
-            } while (opcao1 != 9);
-
-
-
+            } while (opcao3 != 9);
 
             /*
             lista = (PRODUTO *)malloc(sizeof(PRODUTO) * 10);
