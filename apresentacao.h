@@ -14,5 +14,25 @@ void separador();
 */
 int MenuPrincipal();
 
+/**
+ * Gera o menu de vendas e retorna a opção escolhida pelo usuário
+ * @return Retorna item escolhido pelo usuário
+*/
+int MenuVenda();
+
+/**
+ * Gera o menu de clientes e retorna a opção escolhida pelo usuário
+ * @return Retorna item escolhido pelo usuário
+*/
+int MenuClientes();
+
+/**
+ * Gera o menu de produtos e retorna a opção escolhida pelo usuário
+ * @return Retorna item escolhido pelo usuário
+*/
+int MenuProdutos();
+
+int MenuCompras();
+
 //teste
 #endif
