@@ -33,7 +33,7 @@ int MenuVenda()
     system("clear"); // <- opcao caso Linux 
     //system("cls"); // <- opcao caso Windows
     separador();
-    printf("1. Nova Venda\n2. Listar Venda de Clientes\n9. Sair");
+    printf("1. Nova Venda\n2. Listar Venda de Clientes\n9. Sair\n");
     separador();
     separador();
     printf("\nOpção -> ");
@@ -48,7 +48,7 @@ int MenuClientes()
     //system("cls"); // <- opcao caso Windows
     separador();
     printf("1. Cadastrar novo cliente\n2. Atualizar pontuação\n3. Atualizar clientes\n");
-    printf("4. Listar Clientes entre 18 e 25\n5. Listar Clientes acima de 1000 pontos\n9. Sair");
+    printf("4. Listar Clientes entre 18 e 25\n5. Listar Clientes acima de 1000 pontos\n9. Sair\n");
     separador();
     separador();
     printf("\nOpção -> ");
@@ -63,7 +63,7 @@ int MenuProdutos()
     //system("cls"); // <- opcao caso Windows
     separador();
     separador();
-    printf("1. Cadastrar novo produto\n2. Atualizar informações do produto\n3. Estoque de setor\n4. Produtos com estoque baixo\n9. Sair");
+    printf("1. Cadastrar novo produto\n2. Atualizar informações do produto\n3. Estoque de setor\n4. Produtos com estoque baixo\n9. Sair\n");
     separador();
     separador();
     printf("\nOpção -> ");
