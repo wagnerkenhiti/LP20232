@@ -60,6 +60,7 @@ int main(int argc, char const *argv[])
         opcao = MenuPrincipal();
         switch (opcao)
         {
+            
         case 1:
             int opcao1;
             do
