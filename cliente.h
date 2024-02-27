@@ -15,5 +15,33 @@ typedef struct CLIENTE
     unsigned int pontos;
 } CLIENTE;
 
+/**
+ * Função que adiciona um novo cliente através do teclado
+ * @param c Ponteiro para um registro do tipo CLIENTE
+*/
+void adicionarCliente(CLIENTE *c);
+
+/**
+ * Grava dados de um cliente em texto, caso o arquivo não exista, cria ele
+ * @param c Cliente salvo no registro
+*/
+int gravarClienteCSV(CLIENTE c);
+
+/**
+ * Grava dados de um cliente em binário, caso o arquivo
+ * não exista, cria ele
+ * @param c Cliente salvo no registro 
+*/
+int gravarClienteDAT(CLIENTE c);
+
+/**
+ * Edita dados no CSV do cliente a partir de uma busca com o CPF
+*/
+int editaClienteCSV(CLIENTE CPF);
+
+/**
+ * Edita dados no DAT do cliente a partir de uma busca com o CPF
+*/
+int editaClienteDAT();
 
 #endif
