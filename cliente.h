@@ -37,11 +37,21 @@ int gravarClienteDAT(CLIENTE c);
 /**
  * Edita dados no CSV do cliente a partir de uma busca com o CPF
 */
-int editaClienteCSV(CLIENTE CPF);
+int editaClienteCSV();
 
 /**
  * Edita dados no DAT do cliente a partir de uma busca com o CPF
 */
 int editaClienteDAT();
+
+/**
+ * Lista clientes entre 18 a 25 anos
+*/
+int listaClientes();
+
+/**
+ * Procura cliente
+*/
+bool procuraCliente();
 
 #endif
