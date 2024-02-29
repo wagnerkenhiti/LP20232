@@ -61,7 +61,7 @@ int gravarClienteCSV(CLIENTE c)
     {
         printf("Criando arquivo %s\n", nomeArquivo);
         csv = fopen(nomeArquivo, "a");
-        fprintf(csv, "CPF;nome;data de nascimento;idade;endereço;cidade;estado\n");
+        fprintf(csv, "CPF;nome;data de nascimento;idade;endereço;cidade;estado;pontuacao\n");
         fflush(csv);
     }
 
@@ -69,7 +69,7 @@ int gravarClienteCSV(CLIENTE c)
     if (csv != NULL)
     {
         fseek(csv, 0, SEEK_END);
-        fprintf(csv, "%s;%s;%d/%d/%d;%d;%s;%s;%s\n",
+        fprintf(csv, "%s;%s;%d/%d/%d;%d;%s;%s;%s;0\n",
             c.CPF, c.nome, c.dataNascimento.dia, c.dataNascimento.mes,
             c.dataNascimento.ano, c.idade, c.endereco, c.cidade, c.estado);
         fflush(csv);
@@ -78,6 +78,37 @@ int gravarClienteCSV(CLIENTE c)
 
     return 0;
 }
+
+
+/**
+ * Exibe os campos contidos em um registro do tipo PRODUTO
+ * @param c Registro que será exibido
+ */
+void exibirCliente(CLIENTE c)
+{
+    char data[50];
+    separador();
+    printf("Exibindo um cliente \n");
+    printf("CPF do cliente: ");
+    printf(" %s\n", c.CPF);
+    printf("Nome do cliente :  ");
+    printf(" %s\n", c.nome);
+    DataToString(c.dataNascimento, data, false);
+    printf("Data do nascimento do cliente: %s\n", data);
+    printf("Idade do cliente: ");
+    printf(" %d\n", c.idade);
+    printf("Enderedo do cliente: ");
+    printf(" %s\n", c.endereco);
+    printf("Cidade do cliente: ");
+    printf(" %s\n", c.cidade);
+    printf("Estado do cliente: ");
+    printf(" %s\n", c.estado);
+    separador();
+}
+
+
+
+
 
 /**
  * Grava dados de um cliente em binário, caso o arquivo

@@ -35,6 +35,13 @@ int gravarClienteCSV(CLIENTE c);
 int gravarClienteDAT(CLIENTE c);
 
 /**
+ * Exibe os campos contidos em um registro do tipo CLIENTE
+ * @param c Registro que será exibido
+*/
+void exibirCliente(CLIENTE c);
+
+
+/**
  * Edita dados no CSV do cliente a partir de uma busca com o CPF
 */
 int editaClienteCSV();
