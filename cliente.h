@@ -50,7 +50,7 @@ int editaClienteDAT();
 int listaClientes();
 
 /**
- * Procura cliente
+ * Procura cliente a partir do CPF
 */
 bool procuraCliente();
 

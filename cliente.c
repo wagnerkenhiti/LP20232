@@ -30,14 +30,13 @@ void adicionarCliente(CLIENTE *c)
     printf("Nome: ");
     scanf(" %[^\n]", c->nome);
     printf("Dia da data de nascimento: ");
-    scanf(" %d", c->dataNascimento.dia);
+    scanf(" %d", &c->dataNascimento.dia);
     printf("Mês da data de nascimento: ");
-    scanf(" %d", c->dataNascimento.mes);
+    scanf(" %d", &c->dataNascimento.mes);
     printf("Ano da data de nascimento: ");
-    scanf(" %d", c->dataNascimento.ano);
-    //Pedir a idade ou calcular por base da informação anterior?
+    scanf(" %d", &c->dataNascimento.ano);
     printf("Idade: ");
-    scanf(" %d", c->idade);
+    scanf(" %d", &c->idade);
     printf("Endereço: ");
     scanf(" %[^\n]", c->endereco);
     printf("Cidade: ");
