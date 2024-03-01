@@ -70,3 +70,22 @@ int MenuProdutos()
     scanf(" %d", &opcao);
     return opcao;
 }
+
+/**
+ * Gera um menu para vendas e retorna a opção escolhida pelo usuário
+ * @return Retorna item escolhida pelo usuário
+*/
+int MenuCompra()
+{
+    int opcao;
+    system("clear"); // <- opcao caso Linux 
+    //system("cls"); // <- opcao caso Windows
+    separador();
+    separador();
+    printf("1. Adicionar itens a compra\n2. Finalizar compra\n");
+    separador();
+    separador();
+    printf("\nOpção -> ");
+    scanf(" %d", &opcao);
+    return opcao;
+}

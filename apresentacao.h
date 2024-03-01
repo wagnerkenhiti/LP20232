@@ -2,7 +2,6 @@
 #define __APRESENTACAO_H__
 
 
-//oi teste
 /**
  * Cria um separador de linhas para exibição
 */
@@ -31,6 +30,12 @@ int MenuClientes();
  * @return Retorna item escolhido pelo usuário
 */
 int MenuProdutos();
+
+/**
+ * Gera um menu para vendas e retorna a opção escolhida pelo usuário
+ * @return Retorna item escolhida pelo usuário
+*/
+int MenuCompra();
 
 //teste
 #endif
