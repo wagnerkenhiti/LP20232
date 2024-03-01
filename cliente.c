@@ -28,7 +28,7 @@ void adicionarCliente(CLIENTE *c)
     printf("CPF: ");
     scanf(" %[^\n]s", c->CPF);
     printf("Nome: ");
-    scanf(" %[^\n]", c->nome);
+    scanf(" %[^\n]s", c->nome);
     printf("Dia da data de nascimento: ");
     scanf(" %d", &c->dataNascimento.dia);
     printf("Mês da data de nascimento: ");
@@ -38,12 +38,18 @@ void adicionarCliente(CLIENTE *c)
     printf("Idade: ");
     scanf(" %d", &c->idade);
     printf("Endereço: ");
-    scanf(" %[^\n]", c->endereco);
+    scanf(" %[^\n]s", c->endereco);
     printf("Cidade: ");
-    scanf(" %[^\n]", c->cidade);
+    scanf(" %[^\n]s", c->cidade);
     printf("Estado: ");
-    scanf(" %[^\n]", c->estado);
+    scanf(" %[^\n]s", c->estado);
     c->pontos = 0;
+}
+
+int retornaLinhaNome(CLIENTE c){
+        
+
+
 }
 
 /**

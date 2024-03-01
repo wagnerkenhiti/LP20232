@@ -14,8 +14,6 @@
  */
 int main(int argc, char const *argv[])
 {
-    /* code */
-    PRODUTO *lista;
     PRODUTO produto;
     CLIENTE cliente;
     int opcao;
@@ -64,13 +62,21 @@ int main(int argc, char const *argv[])
                     {
                         printf("Cliente cadastrado!\n");
                         gravarClienteCSV(cliente);
+                        gravarClienteDAT(cliente);
                     }
                     getchar();
                     break;
 
                 case 2:
+                    printf("Pontuacao atualizada!\n");
                     break;
                 case 3:
+                    char nome[50];
+                    int procuraNome=0;
+                    printf("Atualizando cliente!\nDigite o nome do cliente para modificar: \n");
+                    scanf(" %[\n]s",nome);
+
+
                     break;
                 case 4:
                     break;
@@ -92,16 +98,26 @@ int main(int argc, char const *argv[])
                 switch (opcao3)
                 {
                 case 1:
-
+                    printf("Cadastrando um produto: \n");
                     lerProduto(&produto);
-                    produto.id = obterProximoIdProduto();
                     exibirProduto(produto);
-                    gravarProdutoCSV(produto);
+                    int b = 0;
+                    printf("Dados do produto acima. Para confirmar cadastro, digite 1. Caso contrario, os dados serao invalidados e nao serao salvos: ");
+                    scanf(" %d", &b);
+                    if (b == 1)
+                    {
+                        printf("Produto cadastrado!\n");
+                        produto.id = obterProximoIdProduto();
+                        gravarProdutoCSV(produto);
+                        gravarProdutoDAT(produto);
+                    }
+
                     getchar();
 
                     break;
 
                 case 2:
+
                     break;
                 case 3:
                     break;
