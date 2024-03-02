@@ -35,7 +35,15 @@ unsigned int ProximoIdVenda()
         }
         fseek(f,0,SEEK_SET);
         fwrite(&v, sizeof(unsigned int), 1, f);
-        fflush(v);
+        fflush(f);
         fclose(f);
     }
+    else
+    {
+        f = fopen(nomeArquivo, "wb");
+        fwrite(&id, sizeof(unsigned int), 1, f);
+        fclose(f);
+    }
+
+    return id;
 }
