@@ -5,7 +5,7 @@
 
 typedef struct CLIENTE
 {
-    char CPF[14];
+    char CPF[15]; 
     char nome[51];
     DATA dataNascimento;
     int idade;
@@ -46,19 +46,31 @@ void exibirCliente(CLIENTE c);
 */
 int editaClienteCSV();
 
+
+/**
+ * Verifica existencia do cliente ou se tem algum cliente cadastrado
+ * @param cpf Informa o CPF do cliente que deseja alterar
+ * @return linha no qual encontrou o CPF; -1 se o cpf nao foi encontrado ou se nao tiver clientes cadastrados (nao existir o arquivo)
+*/
+int verificaClienteDAT(char cpf[]);
+
 /**
  * Edita dados no DAT do cliente a partir de uma busca com o CPF
+ * @param linha Informa a linha no qual sera sobrescrita
+ * @param att Insere os novos dados do cliente
 */
-int editaClienteDAT();
+void editaClienteDAT(int linha, CLIENTE att);
+
+/**
+ * Mostra os clientes no arquivo DAT
+*/
+void mostrarClientesDAT();
+
+
 
 /**
  * Lista clientes entre 18 a 25 anos
 */
 int listaClientes();
-
-/**
- * Procura cliente a partir do CPF
-*/
-bool procuraCliente();
 
 #endif

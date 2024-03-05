@@ -71,17 +71,25 @@ int main(int argc, char const *argv[])
                     printf("Pontuacao atualizada!\n");
                     break;
                 case 3:
-                    char nome[50];
-                    int procuraNome=0;
-                    printf("Atualizando cliente!\nDigite o nome do cliente para modificar: \n");
-                    scanf(" %[\n]s",nome);
-
+                    char cpfTemp[30];
+                    printf("***EDICAO DE CLIENTE***\n");
+                    printf("Digite o CPF do cliente que deseja alterar: ");
+                    scanf(" %s", cpfTemp);
+                    int linhaEd=verificaClienteDAT(cpfTemp);
+                    if (linhaEd<0)
+                        break;
+                    adicionarCliente(&cliente);
+                    editaClienteDAT(linhaEd,cliente);
 
                     break;
                 case 4:
+                    mostrarClientesDAT();
                     break;
                 case 5:
                     break;
+                case 6:
+                    break;
+                        
                 default:
                     break;
                 }
