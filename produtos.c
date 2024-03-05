@@ -57,6 +57,7 @@ void exibirProduto(PRODUTO p)
     printf(" %i\n", p.estoque);
     separador();
 }
+
 /**
  * Gravando os dados de um produto no final do arquivo. Caso o arquivo
  * não exista, gera um novo arquivo com as colunas que são o cabeçalho
@@ -113,6 +114,7 @@ int quantidadeProdutosCSV()
         return 0;
     }
 }
+
 /**
  * Leitura de dados do CSV para registros
  * @param lista Ponteiro para um vetor de registros
