@@ -5,44 +5,23 @@
 #include "apresentacao.h"
 
 #include <stdio.h>
-
-/**
- * Começa uma nova compra
- * @param v pnteiro para um registro do tipo VENDA
-*/
-void IniciarCompra(VENDA *v)
+#include <string.h>
+void IniciarCompra(char cpf[])
 {
     // Iniciando uma nova compra (Não consegui colocar o CPF, em v.CPF)
-    v->identificacaoVenda = ProximoIdVenda();
-    v->dataCompra = hoje();
-    v->valorTotal = 0.0;
-    v->quantidadeProdutos = 0;
 
     // Iniciando ItensCompra (não cosnegui iniciar)
 
     // Busca cliente pelo CPF (Não consegui colocar o CPF, em v.CPF)
-    char CPF[15];
-    printf("Iniciando uma nova compra.\n");
-    printf("Digitar o CPF do cliente: ");
-    scanf(" %[^\n]s", CPF);
 
     // Verifica se o cliente está cadastrado, caso de verdadeiro, irá cadasta-lo
-    if (verificaClienteDAT(CPF) == -1)
-    {
-        printf("Cliente não cadastrado.\n");
-        CLIENTE cliente;
-        adicionarCliente(&cliente);
-        exibirCliente(cliente);
-        int a = 0;
-        printf("Dados do cliente acima. Para confirmar cadastro, digite 1. Caso contrario, os dados serao invalidados e nao serao salvos: ");
-        scanf(" %d", &a);
-        if (a == 1)
-        {
-            printf("Cliente cadastrado!\n");
-            gravarClienteCSV(cliente);
-            gravarClienteDAT(cliente);
-        }
-    }
+
+    VENDA v;
+    v.identificacaoVenda = ProximoIdVenda();
+    strcpy(v.CPF, cpf);
+    v.dataCompra = hoje();
+    v.valorTotal = 0;
+    v.quantidadeProdutos = 0;
 
     int opcao;
     do
@@ -58,42 +37,39 @@ void IniciarCompra(VENDA *v)
 
         // Verifica se o produto está em estoque e adiciona a compra
         int quantidadeDisponivel, quantidade;
-        //Fazer uma função para ler a quantidade de prodoutos disponivel
-        quantidadeDisponivel = 0;
-        if (quantidadeDisponivel == 0)
+        // Fazer uma função para ler a quantidade de prodoutos disponivel
+        float precoUnitario;
+        float *precoUnitarioP = &precoUnitario;
+        quantidadeDisponivel = RetornaQuantidade(id, precoUnitarioP);
+        if (quantidadeDisponivel == -1)
+        {
+            printf("ID do produto nao reconhecido\n");
+            return;
+        }
+        else if (quantidadeDisponivel == 0)
             printf("Produto em falta.\n");
         else
         {
             printf("Quantidade: ");
-            scanf(" %d", quantidade);
+            scanf(" %d", &quantidade);
             while (quantidade > quantidadeDisponivel)
             {
                 printf("Quantidade acima do disponivel.\n");
-                printf("Para adicionar a compra, digitar um número disponivel de produto,caso, não queira adicionar ao carrinho digitar -1");
+                printf("Para adicionar a compra, digitar um número disponivel de produto,caso, não queira adicionar ao carrinho digitar 0");
                 scanf(" %d", &quantidade);
             }
+
+            v.quantidadeProdutos = v.quantidadeProdutos + quantidade;
+            v.valorTotal += precoUnitario * quantidade;
+            gravarVendaDAT(v);
+            gravarVendaCSV(v);
         }
 
-        // Adicionar item a compra
-        item *i;
-        if (quantidadeDisponivel != 0 || quantidade != -1)
-        {
-            i->identificacaoProduto = id;
-            i->quantidade = quantidade;
-            // Adicionar uma função ou fazer uma modo de achar o preco unitario
-            i->precoUnitario = 0;
-            i->precoTotal = i->precoUnitario * i->quantidade;
-            
-            // Adiciona ao registro de VENDA
-            v->quantidadeProdutos = v->quantidadeProdutos + i->quantidade;
-            v->valorTotal = v->valorTotal + i->precoTotal;
-        }
-
-        //Baixar do estoque
+        // Baixar do estoque
     } while (opcao != 2);
 
     // Verifica se o cliente comprou algo, caso positivo, grava dados em Vendas.csv
-    if (v->quantidadeProdutos != 0)
+    if (v.quantidadeProdutos != 0)
     {
     }
 }
@@ -101,7 +77,7 @@ void IniciarCompra(VENDA *v)
 /**
  * Grava dados de uma venda em texto, caso o arquivo não exista, cria ele
  * @param v Venda salvo no registro
-*/
+ */
 int gravarVendaCSV(VENDA v)
 {
     char nomeArquivo[] = "Vendas.csv";
@@ -122,7 +98,7 @@ int gravarVendaCSV(VENDA v)
     {
         fseek(csv, 0, SEEK_END);
         fprintf(csv, "%d;%s;%d/%d/%d;%.2f;%d;0\n", v.identificacaoVenda, v.CPF,
-        v.dataCompra.dia, v.dataCompra.mes, v.dataCompra.ano, v.valorTotal, v.quantidadeProdutos);
+                v.dataCompra.dia, v.dataCompra.mes, v.dataCompra.ano, v.valorTotal, v.quantidadeProdutos);
         fflush(csv);
         fclose(csv);
     }
@@ -133,8 +109,8 @@ int gravarVendaCSV(VENDA v)
 /**
  * Grava dados de uma venda em binário, caso o arquivo
  * não exista, cria ele
- * @param v Venda salvo no registro 
-*/
+ * @param v Venda salvo no registro
+ */
 int gravarVendaDAT(VENDA v)
 {
     char nomeArquivo[] = "Vendas.dat";
@@ -159,10 +135,28 @@ int gravarVendaDAT(VENDA v)
     return 0;
 }
 
+int RetornaQuantidade(int id, float *precoUnit)
+{
+    FILE *f = fopen("Produtos.dat", "rb");
+    int tamProd = quantidadeProdutosDAT();
+    PRODUTO comp;
+    for (int i = 0; i < tamProd; i++)
+    {
+        fseek(f, sizeof(PRODUTO) * i, SEEK_SET);
+        fread(&comp, sizeof(PRODUTO), 1, f);
+        if (comp.id == id)
+        {
+            *precoUnit = comp.preco;
+            return comp.estoque;
+        }
+    }
+    return -1;
+}
+
 /**
  * Retorna o id a ser utilizado para a próxima venda
  * @return Retorna próximo ID, quando há erro, retoena -1
-*/
+ */
 unsigned int ProximoIdVenda()
 {
     char nomeArquivo[] = "idVenda.dat";
@@ -179,7 +173,7 @@ unsigned int ProximoIdVenda()
             v++;
             id = v;
         }
-        fseek(f,0,SEEK_SET);
+        fseek(f, 0, SEEK_SET);
         fwrite(&v, sizeof(unsigned int), 1, f);
         fflush(f);
         fclose(f);

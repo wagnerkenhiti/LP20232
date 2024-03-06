@@ -78,7 +78,7 @@ int MenuProdutos()
 int MenuCompra()
 {
     int opcao;
-    system("clear"); // <- opcao caso Linux 
+    //system("clear"); // <- opcao caso Linux 
     //system("cls"); // <- opcao caso Windows
     separador();
     separador();

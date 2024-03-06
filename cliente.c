@@ -168,19 +168,12 @@ void editaClienteDAT(int linha, CLIENTE att)
     char nomeArquivo[] = "Cliente.dat";
     FILE *dat;
     dat = fopen(nomeArquivo, "rb+");
-    CLIENTE teste;
-    //FILE *Dat=fopen(nomeArquivo, "rb");
-    // Adicionar dados
     fseek(dat,sizeof(CLIENTE)*(linha-1), SEEK_SET); //sizeof(CLIENTE)*(linha-1)
     fwrite(&att, sizeof(CLIENTE), 1, dat);
     fflush(dat);
     fclose(dat);
     printf("Cliente alterado com sucesso!\n");
-    
-    printf("\n#######################\n");
-    
-    //fread(&teste, sizeof(CLIENTE), 1, Dat);
-    printf(" %s ",teste.nome);
+
 }
 
 void mostrarClientesDAT()

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "produtos.h"
 #include "apresentacao.h"
+#include "vendas.h"
 #include "cliente.h"
 #include "tempo.h"
 
@@ -32,6 +33,28 @@ int main(int argc, char const *argv[])
                 switch (opcao1)
                 {
                 case 1:
+                    char cpfVenda[15];
+                    printf("Digite o CPF do cliente que deseja cadastrar a compra: ");
+                    scanf(" %s", cpfVenda);
+
+                    if (verificaClienteDAT(cpfVenda) == -1)
+                    {
+                        printf("Cadastrando cliente!\n");
+                        CLIENTE clienteVenda;
+                        adicionarCliente(&clienteVenda);
+                        exibirCliente(clienteVenda);
+                        int h = 0;
+                        printf("Dados do cliente acima. Para confirmar cadastro, digite 1. Caso contrario, os dados serao invalidados e nao serao salvos: ");
+                        scanf(" %d", &h);
+                        if (h == 1)
+                        {
+                            printf("Cliente cadastrado!\n");
+                            gravarClienteCSV(clienteVenda);
+                            gravarClienteDAT(clienteVenda);
+                        }
+                    }
+                    IniciarCompra(cpfVenda);
+
 
                     break;
 
@@ -75,11 +98,11 @@ int main(int argc, char const *argv[])
                     printf("***EDICAO DE CLIENTE***\n");
                     printf("Digite o CPF do cliente que deseja alterar: ");
                     scanf(" %s", cpfTemp);
-                    int linhaEd=verificaClienteDAT(cpfTemp);
-                    if (linhaEd<0)
+                    int linhaEd = verificaClienteDAT(cpfTemp);
+                    if (linhaEd < 0)
                         break;
                     adicionarCliente(&cliente);
-                    editaClienteDAT(linhaEd,cliente);
+                    editaClienteDAT(linhaEd, cliente);
 
                     break;
                 case 4:
@@ -89,7 +112,7 @@ int main(int argc, char const *argv[])
                     break;
                 case 6:
                     break;
-                        
+
                 default:
                     break;
                 }

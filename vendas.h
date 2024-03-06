@@ -6,7 +6,7 @@
 typedef struct VENDA
 {
     int identificacaoVenda;
-    char CPF[14];
+    char CPF[15];
     DATA dataCompra;
     float valorTotal;
     int quantidadeProdutos;
@@ -23,15 +23,25 @@ typedef struct item
 typedef struct ItensCompra
 {
     int identificacaoVenda;
-    char CPF[14];
+    char CPF[15];
     item *listaCompra;
 }IntensCompra;
 
 /**
  * Começa uma nova compra
- * @param v pnteiro para um registro do tipo VENDA
+ * @param cpf CPF no qual a compra sera contabilizada
 */
-void IniciarCompra(VENDA *v);
+void IniciarCompra(char cpf[]);
+
+/**  
+ * FUNCAO AINDA NAO TESTADA
+ * @param id ID do produto que tera sua disponibilidade consultada
+ * @param precoUnit preco unitario do produto.
+ * @return Retorna a quantidade de itens disponiveis ou -1 se nao existir produto com tal ID
+*/
+int RetornaQuantidade(int id,float *precoUnit);
+
+
 
 /**
  * Grava dados de uma venda em texto, caso o arquivo não exista, cria ele

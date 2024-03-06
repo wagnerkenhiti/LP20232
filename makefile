@@ -4,7 +4,7 @@ all: mercadinhoTeste
 mercadinhoTeste:  produtos.o apresentacao.o tempo.o cliente.o vendas.o main.o
 # Compilador faz a ligação entre os dois arquivos obj 
 # 	e gera o executável
-	gcc -o mercadoPrototipo main.o produtos.o apresentacao.o tempo.o cliente.o -ggdb
+	gcc -o mercadoPrototipo main.o produtos.o apresentacao.o tempo.o cliente.o vendas.o -ggdb
 
 cliente.o: cliente.c
 	gcc -o cliente.o -c cliente.c -Wall -ggdb
