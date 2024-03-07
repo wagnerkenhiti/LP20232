@@ -40,6 +40,13 @@ int gravarClienteDAT(CLIENTE c);
 */
 void exibirCliente(CLIENTE c);
 
+/**
+ * Leitura de dados do .dat para registros 
+ * @param lista Ponteiro para um vetor de registros 
+ * com os dados que estão no arquivo
+ * @return Retorna a quantidade de produtos cadastrados
+*/
+int lerClientesDAT(CLIENTE *lista);
 
 /**
  * Edita dados no CSV do cliente a partir de uma busca com o CPF

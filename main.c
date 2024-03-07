@@ -52,13 +52,25 @@ int main(int argc, char const *argv[])
                             gravarClienteCSV(clienteVenda);
                             gravarClienteDAT(clienteVenda);
                         }
+                        else
+                        {
+                            printf("Cadastro do cliente cancelado!\n");
+                            break;
+                        }
                     }
                     IniciarCompra(cpfVenda);
-
 
                     break;
 
                 case 2:
+                    VENDA todasVendas[200];
+                    int u = lerVendasDAT(todasVendas);
+                    if (u > 0)
+                        for (int i = 0; i < u; i++)
+                        {
+                            exibirVendas(todasVendas[i]);
+                        }
+
                     break;
                 default:
                     break;
@@ -109,8 +121,25 @@ int main(int argc, char const *argv[])
                     mostrarClientesDAT();
                     break;
                 case 5:
+                    CLIENTE todosClientes[200];
+                    int n = lerClientesDAT(todosClientes);
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (todosClientes[i].idade <= 25 && todosClientes[i].idade >= 18)
+                        {
+                            exibirCliente(todosClientes[i]);
+                        }
+                    }
                     break;
                 case 6:
+                    n = lerClientesDAT(todosClientes);
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (todosClientes[i].pontos > 1000)
+                        {
+                            exibirCliente(todosClientes[i]);
+                        }
+                    }
                     break;
 
                 default:
@@ -149,11 +178,55 @@ int main(int argc, char const *argv[])
 
                 case 2:
 
+                    printf("***EDICAO DE PRODUTO***\n");
+                    int id;
+                    printf("Digite o ID do produto que deseja alterar: ");
+                    scanf(" %d", &id);
+                    int linhaEd = verificaProdutoDAT(id);
+                    if (linhaEd < 0)
+                        break;
+                    lerProduto(&produto);
+                    editaProdutoDAT(linhaEd, produto);
                     break;
+
                 case 3:
+
+                    PRODUTO todosProdutos[200];
+                    int k = lerProdutosDAT(todosProdutos);
+                    char setor[50];
+                    printf("Digite o setor que deseja consultar quantos itens ha no estoque: ");
+                    scanf(" %s", setor);
+                    int soma = 0;
+                    for (int i = 0; i < k; i++)
+                    {
+                        if (strcmp(todosProdutos[i].setor, setor) == 0)
+                        {
+                            soma += todosProdutos[i].estoque;
+                            exibirProduto(todosProdutos[i]);
+                        }
+                    }
+                    if (!soma)
+                        printf("Nao ha nenhum produto no setor digitado ou setor digitado incorretamente");
+                    printf("A soma dos estoques do setor digitado e %d\n", soma);
                     break;
+
                 case 4:
+                    k = lerProdutosDAT(todosProdutos);
+                    for (int i = 0; i < k; i++)
+                    {
+                        if (todosProdutos[i].estoque <= 5)
+                            exibirProduto(todosProdutos[i]);
+                    }
+
                     break;
+                case 5:
+                    k = lerProdutosDAT(todosProdutos);
+                    for (int i = 0; i < k; i++)
+                    {
+                        exibirProduto(todosProdutos[i]);
+                    }
+                    break;
+
                 default:
                     break;
                 }

@@ -42,6 +42,20 @@ void IniciarCompra(char cpf[]);
 int RetornaQuantidade(int id,float *precoUnit);
 
 
+void exibirVendas(VENDA p);
+
+
+/**
+ * Leitura de dados do .dat para registros 
+ * @param lista Ponteiro para um vetor de registros 
+ * com os dados que estão no arquivo
+ * @return Retorna a quantidade de produtos cadastrados
+*/
+int lerVendasDAT(VENDA *lista);
+
+
+void debitaEstoque(int id,int quantidade);
+
 
 /**
  * Grava dados de uma venda em texto, caso o arquivo não exista, cria ele

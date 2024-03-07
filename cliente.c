@@ -168,13 +168,43 @@ void editaClienteDAT(int linha, CLIENTE att)
     char nomeArquivo[] = "Cliente.dat";
     FILE *dat;
     dat = fopen(nomeArquivo, "rb+");
-    fseek(dat,sizeof(CLIENTE)*(linha-1), SEEK_SET); //sizeof(CLIENTE)*(linha-1)
+    fseek(dat, sizeof(CLIENTE) * (linha - 1), SEEK_SET); // sizeof(CLIENTE)*(linha-1)
     fwrite(&att, sizeof(CLIENTE), 1, dat);
     fflush(dat);
     fclose(dat);
     printf("Cliente alterado com sucesso!\n");
-
 }
+
+
+
+int lerClientesDAT(CLIENTE *lista)
+{
+    int qtde = 0;
+    char nomeArquivo[] = "Cliente.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb");
+    if (dat != NULL)
+    {
+        while (fread(&lista[qtde], sizeof(CLIENTE), 1, dat) > 0)
+        {
+            // exibirProduto(lista[qtde]);
+            qtde++;
+        }
+        return qtde;
+    }
+    else
+    {
+        printf("Erro - Arquivo %s não encontrado\n", nomeArquivo);
+        return -1;
+    }
+}
+
+
+
+
+
+
+
 
 void mostrarClientesDAT()
 {
@@ -183,12 +213,13 @@ void mostrarClientesDAT()
     FILE *dat;
     dat = fopen(nomeArquivo, "rb");
     CLIENTE listar;
-    fseek(dat,sizeof(CLIENTE),SEEK_END);
-    int i = ftell(dat)/sizeof(CLIENTE);
-    fseek(dat,0,SEEK_SET);
-    printf("%d",i);
-    for(int j=1;j<i;j++){
-         fread(&listar, sizeof(CLIENTE), 1, dat);
-       exibirCliente(listar);
+    fseek(dat, sizeof(CLIENTE), SEEK_END);
+    int i = ftell(dat) / sizeof(CLIENTE);
+    fseek(dat, 0, SEEK_SET);
+    printf("%d", i);
+    for (int j = 1; j < i; j++)
+    {
+        fread(&listar, sizeof(CLIENTE), 1, dat);
+        exibirCliente(listar);
     }
 }

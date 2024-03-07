@@ -44,6 +44,24 @@ void exibirProduto(PRODUTO p);
 int gravarProdutoCSV( PRODUTO p);
 
 /**
+ * Verifica se o produto esta no arquivo Produtos.dat
+ * @param ID id do produto a ser procurado no arquivo
+ * @return Se o produto estiver no arquivo, retorna a linha que ele esta. Caso contrario,
+ * retorna -1
+*/
+int verificaProdutoDAT(int ID);
+
+
+/**
+ * Edita o produto no arquivo Produtos.dat
+ * @param linha linha em que sera alterada no Produtos.dat
+ * @param att Novo produto (registro) que substituira o produto da linha
+*/
+void editaProdutoDAT(int linha, PRODUTO att);
+
+
+
+/**
  * Retorna a quantidade de produtos que estão salvos no arquivo CSV
  * @return Quantidade de produtos salvos
 */

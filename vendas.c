@@ -8,14 +8,6 @@
 #include <string.h>
 void IniciarCompra(char cpf[])
 {
-    // Iniciando uma nova compra (Não consegui colocar o CPF, em v.CPF)
-
-    // Iniciando ItensCompra (não cosnegui iniciar)
-
-    // Busca cliente pelo CPF (Não consegui colocar o CPF, em v.CPF)
-
-    // Verifica se o cliente está cadastrado, caso de verdadeiro, irá cadasta-lo
-
     VENDA v;
     v.identificacaoVenda = ProximoIdVenda();
     strcpy(v.CPF, cpf);
@@ -58,20 +50,82 @@ void IniciarCompra(char cpf[])
                 printf("Para adicionar a compra, digitar um número disponivel de produto,caso, não queira adicionar ao carrinho digitar 0");
                 scanf(" %d", &quantidade);
             }
-
+            if (quantidade <= 0)
+                break;
             v.quantidadeProdutos = v.quantidadeProdutos + quantidade;
             v.valorTotal += precoUnitario * quantidade;
             gravarVendaDAT(v);
             gravarVendaCSV(v);
+            debitaEstoque(id, quantidade);
         }
 
         // Baixar do estoque
     } while (opcao != 2);
+}
 
-    // Verifica se o cliente comprou algo, caso positivo, grava dados em Vendas.csv
-    if (v.quantidadeProdutos != 0)
+void exibirVendas(VENDA p)
+{
+    char data[50];
+    separador();
+    printf("Exibindo uma venda \n");
+    printf("Idenficador da venda: ");
+    printf("%d\n", p.identificacaoVenda);
+    printf("CPF do cliente que realizou a compra:  ");
+    printf("%s\n", p.CPF);
+    DataToString(p.dataCompra, data, false);
+    printf("Data que o produto foi comprado: %s\n", data);
+    printf("Valor total da compra: ");
+    printf("%.2f\n", p.valorTotal);
+    printf("Quantidade total de produtos: ");
+    printf("%d\n", p.quantidadeProdutos);
+    separador();
+}
+
+void debitaEstoque(int id, int quantidade)
+{
+    char nomeArquivo[] = "Produtos.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb+");
+
+    PRODUTO todosProdutos1[200];
+    int k1 = lerProdutosDAT(todosProdutos1);
+    PRODUTO temp;
+
+    for (int j = 0; j < k1; j++)
     {
+        fread(&temp, sizeof(PRODUTO), 1, dat);
+        if (temp.id == id)
+        {
+            fseek(dat, sizeof(PRODUTO)*j, SEEK_SET);
+            temp.estoque-=quantidade;
+            fwrite(&temp, sizeof(PRODUTO), 1, dat);
+            fflush(dat);
+        }
     }
+
+}
+
+int lerVendasDAT(VENDA *lista)
+{
+    int qtde = 0;
+    char nomeArquivo[] = "Vendas.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb");
+    if (dat != NULL)
+    {
+        while (fread(&lista[qtde], sizeof(VENDA), 1, dat) > 0)
+        {
+            // exibirProduto(lista[qtde]);
+            qtde++;
+        }
+        return qtde;
+    }
+    else
+    {
+        printf("Erro - Arquivo %s não encontrado\n", nomeArquivo);
+        return -1;
+    }
+    fclose(dat);
 }
 
 /**

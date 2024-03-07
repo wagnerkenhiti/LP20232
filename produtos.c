@@ -258,6 +258,57 @@ int lerProdutosDAT(PRODUTO *lista)
 }
 
 
+
+
+
+
+
+int verificaProdutoDAT(int ID)
+{
+
+    char nomeArquivo[] = "Produtos.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb");
+    if (dat == NULL)
+    {
+        printf("Nenhum produto cadastrado\n");
+        return -1;
+    }
+    bool encontrou = true;
+    PRODUTO velho;
+    int encontraLinha = 0;
+    do
+    {
+        fread(&velho, sizeof(PRODUTO), 1, dat);
+        if (velho.id== ID)
+            encontrou = false;
+        encontraLinha++;
+    } while (!feof(dat) && encontrou);
+
+    
+    if (encontrou)
+    {
+        printf("Produto nao encontrado.\n");
+        return -1;
+    }
+    return encontraLinha;
+}
+
+void editaProdutoDAT(int linha, PRODUTO att)
+{
+    char nomeArquivo[] = "Produtos.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb+");
+    fseek(dat,sizeof(PRODUTO)*(linha-1), SEEK_SET);
+    fwrite(&att, sizeof(PRODUTO), 1, dat);
+    fflush(dat);
+    fclose(dat);
+    printf("Produto alterado com sucesso!\n");
+
+}
+
+
+
 /**
  * Rotina que devolve o id a ser utilizado no próximo cadastro
  * @param formato Define se é para o tipo de arquivo csv ou para o tipo dat

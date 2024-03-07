@@ -63,7 +63,7 @@ int MenuProdutos()
     //system("cls"); // <- opcao caso Windows
     separador();
     separador();
-    printf("1. Cadastrar novo produto\n2. Atualizar informações do produto\n3. Estoque de setor\n4. Produtos com estoque baixo\n9. Sair\n");
+    printf("1. Cadastrar novo produto\n2. Atualizar informações do produto\n3. Estoque de setor\n4. Produtos com estoque baixo\n5. Todos os produtos\n9. Sair\n");
     separador();
     separador();
     printf("\nOpção -> ");
