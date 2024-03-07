@@ -298,7 +298,11 @@ void editaProdutoDAT(int linha, PRODUTO att)
 {
     char nomeArquivo[] = "Produtos.dat";
     FILE *dat;
+    PRODUTO leitor;
     dat = fopen(nomeArquivo, "rb+");
+    fseek(dat,sizeof(PRODUTO)*(linha-1), SEEK_SET);
+    fread(&leitor,sizeof(PRODUTO),1,dat);
+    att.id=leitor.id;
     fseek(dat,sizeof(PRODUTO)*(linha-1), SEEK_SET);
     fwrite(&att, sizeof(PRODUTO), 1, dat);
     fflush(dat);
@@ -344,18 +348,3 @@ unsigned int obterProximoIdProduto()
     return id;
 }
 
-/**
- * @param id Indica qual produto vai ser alterado
- * @param prod Indica qual novo produto substituira o antigo
- * @return Retorna 1 para caso a modificacao foi realizada e 0 quando nao. 
-*/
-int editaProduto(unsigned int id, PRODUTO prod){
-
-
-
-
-
-
-
-    return 0;
-}
