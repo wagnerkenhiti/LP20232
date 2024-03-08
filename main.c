@@ -185,6 +185,7 @@ int main(int argc, char const *argv[])
                     int linhaEd = verificaProdutoDAT(id);
                     if (linhaEd < 0)
                         break;
+                    produto.id=id;
                     lerProduto(&produto);
                     editaProdutoDAT(linhaEd, produto);
                     break;

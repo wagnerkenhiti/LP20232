@@ -298,11 +298,7 @@ void editaProdutoDAT(int linha, PRODUTO att)
 {
     char nomeArquivo[] = "Produtos.dat";
     FILE *dat;
-    PRODUTO leitor;
     dat = fopen(nomeArquivo, "rb+");
-    fseek(dat,sizeof(PRODUTO)*(linha-1), SEEK_SET);
-    fread(&leitor,sizeof(PRODUTO),1,dat);
-    att.id=leitor.id;
     fseek(dat,sizeof(PRODUTO)*(linha-1), SEEK_SET);
     fwrite(&att, sizeof(PRODUTO), 1, dat);
     fflush(dat);
