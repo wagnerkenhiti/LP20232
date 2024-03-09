@@ -96,13 +96,12 @@ void debitaEstoque(int id, int quantidade)
         fread(&temp, sizeof(PRODUTO), 1, dat);
         if (temp.id == id)
         {
-            fseek(dat, sizeof(PRODUTO)*j, SEEK_SET);
-            temp.estoque-=quantidade;
+            fseek(dat, sizeof(PRODUTO) * j, SEEK_SET);
+            temp.estoque -= quantidade;
             fwrite(&temp, sizeof(PRODUTO), 1, dat);
             fflush(dat);
         }
     }
-
 }
 
 int lerVendasDAT(VENDA *lista)
@@ -169,6 +168,7 @@ int gravarVendaDAT(VENDA v)
 {
     char nomeArquivo[] = "Vendas.dat";
     FILE *dat;
+    FILE *datAttPontos = fopen("VendasAttPontos.dat", "a+b");
     dat = fopen(nomeArquivo, "a+b");
 
     // Caso o arquivo não exista, sria ele
@@ -176,13 +176,18 @@ int gravarVendaDAT(VENDA v)
     {
         printf("Criando arquivo %s\n", nomeArquivo);
         dat = fopen(nomeArquivo, "ab");
+        datAttPontos = fopen("VendasAttPontos.dat", "ab");
     }
 
     // Adiciona dados
     if (dat != NULL)
     {
+
         fwrite(&v, sizeof(VENDA), 1, dat);
+        fwrite(&v, sizeof(VENDA), 1, datAttPontos);
+        fflush(datAttPontos);
         fflush(dat);
+        fclose(datAttPontos);
         fclose(dat);
     }
 
