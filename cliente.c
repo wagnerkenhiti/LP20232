@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "vendas.h"
 
 /**
  * Adiciona pontos a um determinado cliente
@@ -200,67 +199,6 @@ int lerClientesDAT(CLIENTE *lista)
     }
 }
 
-
-int AtulizarPontuação(char cpf[]) 
-{
-    //Verifica se o cpf informado possui cadastro
-    FILE *client;
-    client = fopen(Cliente.dat, "rb");
-    if (client == NULL){
-        printf("Erro");
-        return -1;
-    }
-    else { 
-        bool Nencontrou = true;
-        CLIENTE pessoa;
-        char resposta[3];
-        unsigned int pontuaçaoAtual = 0;
-        do
-        {
-            fread(&pessoa, sizeof(CLIENTE), 1, client);
-            if (strcmp(pessoa.CPF, cpf) == 0){
-                Nencontrou = false;
-                pontuaçaoAtual = pessoa.pontos;
-            }
-        } while (feof(client)!= 0 && Nencontrou);
-    if (Nencontrou)
-    {
-    //caso não possua cadastro chama função p/ cadastrar, caso desejado
-        printf("Cliente nao encontrado. Deseja cadatrar?/n");
-        scanf("%s", &resposta);
-        if (resposta == "SIM" || resposta == "Sim" || resposta == "sim" ){
-            adicionarCliente(CLIENTE *c);
-        }
-        else
-          return -1;      
-    }
-    //com o cpf ja encontrado/cadastrado verifica se há pontos para atualizar
-    FILE *Acumulados;
-    VENDA venda;
-    Acumulados = fopen(Vendas.dat, "rb");
-    if (Acumulados == NULL){
-        printf("Erro");
-        return -1;
-    } 
-    else{ 
-        do
-        {
-            fread(&venda , sizeof(VENDA), 1, Acumulados);
-            if (strcmp(venda.CPF, cpf) == 0){
-                if(pontuaçaoAtual % 1 == 0) //caso seja um valor redondo converte cada real para 1 ponto
-                    pontuaçaoAtual = pontuaçaoAtual + (venda.valorTotal / 1);
-                    //falta agora apagar do arquivo vendas a compra
-                else
-                {
-                    pontuaçaoAtual = pontuaçaoAtual + (venda.valorTotal / 1)
-                    venda.valorTotal = pontuaçaoAtual % 1; //converte os inteiros para ponto e armazena o resto de volta no lugar ex: 15,30 guarda 15 pontos e armazena 0,30 centavos
-                }
-        } while (feof(Acumulados)!= 0 );
- //agora falta substituir do arquivo arquivo cliente a pontuação antiga pela atual
- printf("pontuação atualizada com sucesso, você possui:")
-}
-
-    }
 
 
 
