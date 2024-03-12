@@ -15,52 +15,44 @@ void IniciarCompra(char cpf[])
     v.valorTotal = 0;
     v.quantidadeProdutos = 0;
 
-    int opcao;
-    do
+    int id;
+    // Leitura do código do produto
+    printf("Código do produto: ");
+    scanf(" %d", &id);
+
+    // Exibir tela com as informações: nome, preço, qtd em estoque
+
+    // Verifica se o produto está em estoque e adiciona a compra
+    int quantidadeDisponivel, quantidade;
+    // Fazer uma função para ler a quantidade de prodoutos disponivel
+    float precoUnitario;
+    float *precoUnitarioP = &precoUnitario;
+    quantidadeDisponivel = RetornaQuantidade(id, precoUnitarioP);
+    if (quantidadeDisponivel == -1)
     {
-        opcao = MenuCompra();
-        int id;
-
-        // Leitura do código do produto
-        printf("Código do produto: ");
-        scanf(" %d", &id);
-
-        // Exibir tela com as informações: nome, preço, qtd em estoque
-
-        // Verifica se o produto está em estoque e adiciona a compra
-        int quantidadeDisponivel, quantidade;
-        // Fazer uma função para ler a quantidade de prodoutos disponivel
-        float precoUnitario;
-        float *precoUnitarioP = &precoUnitario;
-        quantidadeDisponivel = RetornaQuantidade(id, precoUnitarioP);
-        if (quantidadeDisponivel == -1)
+        printf("ID do produto nao reconhecido\n");
+        return;
+    }
+    else if (quantidadeDisponivel == 0)
+        printf("Produto em falta.\n");
+    else
+    {
+        printf("Quantidade: ");
+        scanf(" %d", &quantidade);
+        while (quantidade > quantidadeDisponivel)
         {
-            printf("ID do produto nao reconhecido\n");
-            return;
-        }
-        else if (quantidadeDisponivel == 0)
-            printf("Produto em falta.\n");
-        else
-        {
-            printf("Quantidade: ");
+            printf("Quantidade acima do disponivel.\n");
+            printf("Para adicionar a compra, digitar um número disponivel de produto,caso, não queira adicionar ao carrinho digitar 0");
             scanf(" %d", &quantidade);
-            while (quantidade > quantidadeDisponivel)
-            {
-                printf("Quantidade acima do disponivel.\n");
-                printf("Para adicionar a compra, digitar um número disponivel de produto,caso, não queira adicionar ao carrinho digitar 0");
-                scanf(" %d", &quantidade);
-            }
-            if (quantidade <= 0)
-                break;
-            v.quantidadeProdutos = v.quantidadeProdutos + quantidade;
-            v.valorTotal += precoUnitario * quantidade;
-            gravarVendaDAT(v);
-            gravarVendaCSV(v);
-            debitaEstoque(id, quantidade);
         }
-
-        // Baixar do estoque
-    } while (opcao != 2);
+        if (quantidade <= 0)
+            return;
+        v.quantidadeProdutos = v.quantidadeProdutos + quantidade;
+        v.valorTotal += precoUnitario * quantidade;
+        gravarVendaDAT(v);
+        gravarVendaCSV(v);
+        debitaEstoque(id, quantidade);
+    }
 }
 
 void exibirVendas(VENDA p)
@@ -127,6 +119,29 @@ int lerVendasDAT(VENDA *lista)
     fclose(dat);
 }
 
+int lerVendasAttDAT(VENDA *lista)
+{
+    int qtde = 0;
+    char nomeArquivo[] = "VendasAttPontos.dat";
+    FILE *dat;
+    dat = fopen(nomeArquivo, "rb");
+    if (dat != NULL)
+    {
+        while (fread(&lista[qtde], sizeof(VENDA), 1, dat) > 0)
+        {
+            // exibirProduto(lista[qtde]);
+            qtde++;
+        }
+        return qtde;
+    }
+    else
+    {
+        printf("Erro - Arquivo %s não encontrado\n", nomeArquivo);
+        return -1;
+    }
+    fclose(dat);
+}
+
 /**
  * Grava dados de uma venda em texto, caso o arquivo não exista, cria ele
  * @param v Venda salvo no registro
@@ -142,7 +157,7 @@ int gravarVendaCSV(VENDA v)
     {
         printf("Criando arquivo %s\n", nomeArquivo);
         csv = fopen(nomeArquivo, "a");
-        fprintf(csv, "Id;CPF;Data da compra;Valor total;Itens");
+        fprintf(csv, "Id;CPF;Data da compra;Valor total;Quantidade produtos\n");
         fflush(csv);
     }
 
@@ -150,7 +165,7 @@ int gravarVendaCSV(VENDA v)
     if (csv != NULL)
     {
         fseek(csv, 0, SEEK_END);
-        fprintf(csv, "%d;%s;%d/%d/%d;%.2f;%d;0\n", v.identificacaoVenda, v.CPF,
+        fprintf(csv, "%d;%s;%d/%d/%d;%.2f;%d\n", v.identificacaoVenda, v.CPF,
                 v.dataCompra.dia, v.dataCompra.mes, v.dataCompra.ano, v.valorTotal, v.quantidadeProdutos);
         fflush(csv);
         fclose(csv);

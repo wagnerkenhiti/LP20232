@@ -48,7 +48,7 @@ int MenuClientes()
     //system("cls"); // <- opcao caso Windows
     separador();
     printf("1. Cadastrar novo cliente\n2. Atualizar pontuação\n3. Atualizar clientes\n4. Listar todos os clientes\n");
-    printf("5. Listar Clientes entre 18 e 25\n6. Listar Clientes acima de 1000 pontos\n9. Sair\n");
+    printf("5. Listar Clientes entre 18 e 25\n6. Listar Clientes acima de 1000 pontos\n7. Localizar compras do cliente\n9. Sair\n");
     separador();
     separador();
     printf("\nOpção -> ");

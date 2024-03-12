@@ -103,6 +103,26 @@ int main(int argc, char const *argv[])
                     break;
 
                 case 2:
+                    CLIENTE todosClientes[200];
+                    VENDA todasVendas[200];
+                    int u = lerVendasAttDAT(todasVendas);
+                    int n = lerClientesDAT(todosClientes);
+                    for (int i = 0; i < u; i++)
+                    {
+                        lerClientesDAT(todosClientes);
+                        for (int j = 0; j < n; j++)
+                        {   
+                            if (!strcmp(todasVendas[i].CPF, todosClientes[j].CPF))
+                            {
+                                cliente = todosClientes[j];
+                                AdicionarPontosCliente(&cliente, (int)todasVendas[i].valorTotal);
+                                int linhaEd = verificaClienteDAT(cliente.CPF);
+                                editaClienteDAT(linhaEd, cliente);
+                                break;
+                            }
+                        }
+                    }
+                    system("rm VendasAttPontos.dat");
                     printf("Pontuacao atualizada!\n");
                     break;
                 case 3:
@@ -121,8 +141,7 @@ int main(int argc, char const *argv[])
                     mostrarClientesDAT();
                     break;
                 case 5:
-                    CLIENTE todosClientes[200];
-                    int n = lerClientesDAT(todosClientes);
+                    n = lerClientesDAT(todosClientes);
                     for (int i = 0; i < n; i++)
                     {
                         if (todosClientes[i].idade <= 25 && todosClientes[i].idade >= 18)
@@ -141,7 +160,37 @@ int main(int argc, char const *argv[])
                         }
                     }
                     break;
+                case 7:
+                    char cpfNome[50];
+                    printf("Digite o CPF ou o nome do cliente que deseja procurar: ");
+                    scanf(" %[^\n]s", cpfNome);
+                    n = lerClientesDAT(todosClientes);
+                    int i = 0;
+                    for (; i < n; i++)
+                    {
+                        if (!strcmp(todosClientes[i].nome, cpfNome))
+                        {
+                            strcpy(cpfNome, todosClientes[i].CPF);
+                            i = n;
+                        }
+                    }
+                    u = lerVendasDAT(todasVendas);
+                    for (int i = 0; i < u; i++)
+                    {
+                        if (!strcmp(todasVendas[i].CPF, cpfNome))
+                        {
+                            char data[50];
+                            DataToString(todasVendas[i].dataCompra, data, false);
+                            printf("Data que o produto foi comprado: %s\n", data);
+                            printf("Valor total da compra: ");
+                            printf("%.2f\n", todasVendas[i].valorTotal);
+                            printf("Quantidade total de produtos: ");
+                            printf("%d\n", todasVendas[i].quantidadeProdutos);
+                            separador();
+                        }
+                    }
 
+                    break;
                 default:
                     break;
                 }
@@ -185,7 +234,7 @@ int main(int argc, char const *argv[])
                     int linhaEd = verificaProdutoDAT(id);
                     if (linhaEd < 0)
                         break;
-                    produto.id=id;
+                    produto.id = id;
                     lerProduto(&produto);
                     editaProdutoDAT(linhaEd, produto);
                     break;

@@ -16,6 +16,13 @@ typedef struct CLIENTE
 } CLIENTE;
 
 /**
+ * Adiciona pontos a um determinado cliente
+ * @param c Ponteiro para o cliente que será adicionado
+ * @param pontos Pontos a serem adicionados ao cliente c *
+ */
+void AdicionarPontosCliente(CLIENTE *c, int pontos);
+
+/**
  * Função que adiciona um novo cliente através do teclado
  * @param c Ponteiro para um registro do tipo CLIENTE
 */
@@ -49,12 +56,6 @@ void exibirCliente(CLIENTE c);
 int lerClientesDAT(CLIENTE *lista);
 
 /**
- * Edita dados no CSV do cliente a partir de uma busca com o CPF
-*/
-int editaClienteCSV();
-
-
-/**
  * Verifica existencia do cliente ou se tem algum cliente cadastrado
  * @param cpf Informa o CPF do cliente que deseja alterar
  * @return linha no qual encontrou o CPF; -1 se o cpf nao foi encontrado ou se nao tiver clientes cadastrados (nao existir o arquivo)
@@ -72,12 +73,5 @@ void editaClienteDAT(int linha, CLIENTE att);
  * Mostra os clientes no arquivo DAT
 */
 void mostrarClientesDAT();
-
-
-
-/**
- * Lista clientes entre 18 a 25 anos
-*/
-int listaClientes();
 
 #endif

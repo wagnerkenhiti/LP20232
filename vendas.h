@@ -53,6 +53,8 @@ void exibirVendas(VENDA p);
 */
 int lerVendasDAT(VENDA *lista);
 
+int lerVendasAttDAT(VENDA *lista);
+
 
 void debitaEstoque(int id,int quantidade);
 
